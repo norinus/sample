@@ -1,6 +1,6 @@
 # 스프링 부트  JPA, QueryDSL, Liquibase. MapStruct , 타임리프 기반 예제 프로젝트
 
-이 프로젝트는 스프링 부트  JPA, QueryDSL, Liquibase. MapStruct 기반 프로젝트입니다. 
+이 프로젝트는 스프링 부트  JPA, QueryDSL, Liquibase. MapStruct, 타임리프 기반 프로젝트입니다. 
 
 ## 프로젝트 개요
 
