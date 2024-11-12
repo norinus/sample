@@ -119,4 +119,105 @@ logging:
   level:
     root: INFO  # 기본 로깅 레벨을 INFO로 설정
     org.springframework.web: DEBUG  # Spring Web 모듈에 대한 디버그 레벨 로깅 활성화
+```
+
+# Spring Boot 프로젝트 빌드 설정
+
+이 문서는 `build.gradle` 파일의 설정에 대한 설명입니다. 이 설정 파일은 Spring Boot 애플리케이션에 필요한 의존성 및 플러그인들을 포함하고 있으며, Lombok, MapStruct, QueryDSL, Liquibase 등을 활용하여 개발 환경을 구성합니다.
+
+## build.gradle 파일
+
+### 플러그인 설정
+
+```gradle
+plugins {
+    id 'java'  // Java 플러그인 추가
+    id 'org.springframework.boot' version '3.3.5'  // Spring Boot 플러그인 추가
+    id 'io.spring.dependency-management' version '1.1.6'  // Spring 의존성 관리 플러그인
+}
+```
+
+### 프로젝트 정보
+
+```gradle
+group = 'com.lab'  // 프로젝트 그룹 설정
+version = '0.0.1-SNAPSHOT'  // 버전 설정
+```
+
+### 자바 버전 설정
+
+```gradle
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)  // 자바 17 버전 사용
+    }
+}
+```
+
+- **Java 17**: 프로젝트에서 Java 17을 사용하도록 설정합니다.
+
+### 컴파일 전용 설정
+
+```gradle
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor  // Lombok과 같은 애노테이션 프로세서를 포함하는 설정 확장
+    }
+}
+```
+
+- **compileOnly**: 컴파일 시에만 필요한 의존성을 설정합니다. Lombok과 같은 애노테이션 프로세서를 포함합니다.
+
+### 저장소 설정
+
+```gradle
+repositories {
+    mavenCentral()  // Maven Central 저장소 사용
+}
+```
+
+- **mavenCentral**: 프로젝트에서 필요한 라이브러리를 Maven Central에서 다운로드합니다.
+
+### 의존성 설정
+
+```gradle
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'  // JPA Starter
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'  // Thymeleaf Starter
+    implementation 'org.springframework.boot:spring-boot-starter-web'  // Web Starter
+    compileOnly 'org.projectlombok:lombok'  // Lombok (컴파일 전용)
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'  // 개발 도구
+    runtimeOnly 'com.mysql:mysql-connector-j'  // MySQL 커넥터
+    annotationProcessor 'org.projectlombok:lombok'  // Lombok 애노테이션 프로세서
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'  // 테스트 라이브러리
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'  // JUnit 플랫폼 런처
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0'  // OpenAPI 문서화
+
+    implementation 'org.mapstruct:mapstruct:1.5.5.Final'  // MapStruct 라이브러리
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.5.Final'  // MapStruct 애노테이션 프로세서
+    annotationProcessor 'org.projectlombok:lombok-mapstruct-binding:0.2.0'  // Lombok과 MapStruct 바인딩
+
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.0'  // Jackson JSON 라이브러리
+
+    implementation 'org.liquibase:liquibase-core:4.30.0'  // Liquibase 마이그레이션 라이브러리
+
+    implementation 'com.querydsl:querydsl-jpa:5.1.0:jakarta'  // QueryDSL JPA 지원
+    annotationProcessor "com.querydsl:querydsl-apt:5.1.0:jakarta"  // QueryDSL APT
+    annotationProcessor "jakarta.annotation:jakarta.annotation-api"  // Jakarta 애노테이션
+    annotationProcessor "jakarta.persistence:jakarta.persistence-api"  // Jakarta Persistence 애노테이션
+
+    testCompileOnly 'org.projectlombok:lombok'  // 테스트 시 Lombok 컴파일 전용
+    testAnnotationProcessor 'org.projectlombok:lombok'  // Lombok 애노테이션 프로세서 (테스트용)
+}
+```
+
+각 의존성 설명:
+- **Spring Boot Starters**: `spring-boot-starter-data-jpa`, `spring-boot-starter-thymeleaf`, `spring-boot-starter-web`을 포함하여 JPA, Thymeleaf 템플릿 엔진, 웹 MVC를 지원합니다.
+- **Lombok**: 코드를 줄여주는 라이브러리로, 컴파일 시점에 애노테이션 프로세서가 코드 생성을 돕습니다.
+- **DevTools**: 개발용 도구로, 애플리케이션 자동 재시작을 지원합니다.
+- **MySQL Connector**: MySQL 데이터베이스와 연결하기 위한 드라이버입니다.
+- **SpringDoc OpenAPI**: OpenAPI 문서를 생성하고 웹 UI로 제공하는 라이브러리입니다.
+- **MapStruct**: DTO와 엔티티 간 매핑을 위한 라이브러리입니다.
+- **Jackson Databind**: JSON 직렬화와 역직렬화를 위한 라이브러리입니다.
+- **Liquibase**: 데이터베이스 마이그레이션 관리
 
