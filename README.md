@@ -77,3 +77,46 @@ mysql -u klaatus -p
 ---
 
 이 단계들을 완료하면 MySQL 데이터베이스와 사용자가 성공적으로 설정됩니다!
+
+
+# 게시판 애플리케이션
+
+이 프로젝트는 Spring Boot 기반의 게시판 애플리케이션으로, MySQL 데이터베이스와 Liquibase를 사용하여 데이터베이스 마이그레이션을 관리합니다.
+
+## 설정 파일 (`application.yml`)
+
+아래는 애플리케이션 설정 파일인 `application.yml`의 주요 설정에 대한 설명입니다.
+
+```yaml
+spring:
+  application:
+    name: board  # 애플리케이션 이름 설정
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver  # MySQL 데이터베이스 드라이버 설정
+    url: jdbc:mysql://localhost:3306/lab?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    # 데이터베이스 URL 설정
+    # - useSSL=false: SSL 연결 비활성화
+    # - serverTimezone=Asia/Seoul: 서버 시간대를 'Asia/Seoul'로 설정
+    # - characterEncoding=UTF-8: UTF-8 인코딩 사용
+    username: klaatus  # 데이터베이스 사용자 이름
+    password: 1234  # 데이터베이스 비밀번호
+
+  jpa:
+    open-in-view: true  # 웹 환경에서 지연 로딩 문제 해결을 위해 뷰 레이어까지 영속성 컨텍스트 열어둠
+    hibernate:
+      ddl-auto: none  # 스키마 자동 생성 비활성화 (Liquibase로 스키마 관리)
+    show-sql: true  # Hibernate가 실행하는 SQL 쿼리를 로그로 출력
+    properties:
+      hibernate.format_sql: true  # SQL 쿼리를 가독성 있게 포맷하여 출력
+      dialect: org.hibernate.dialect.MySQL8InnoDBDialect  # MySQL8 InnoDB용 Hibernate 다이얼렉트 설정
+
+  liquibase:
+    change-log: classpath:/db/changelog/db.changelog-master.xml  # Liquibase 체인지 로그 파일 경로
+    enabled: true  # Liquibase를 활성화하여 데이터베이스 마이그레이션 수행
+
+logging:
+  level:
+    root: INFO  # 기본 로깅 레벨을 INFO로 설정
+    org.springframework.web: DEBUG  # Spring Web 모듈에 대한 디버그 레벨 로깅 활성화
+
