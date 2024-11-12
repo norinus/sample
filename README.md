@@ -221,3 +221,47 @@ dependencies {
 - **Jackson Databind**: JSON 직렬화와 역직렬화를 위한 라이브러리입니다.
 - **Liquibase**: 데이터베이스 마이그레이션 관리
 
+
+# QueryDSL 설정
+
+이 문서는 QueryDSL을 사용하기 위한 `QuerydslConfig` 클래스 설정에 대한 설명입니다. 이 설정은 Spring Boot 환경에서 QueryDSL을 사용하는 데 필요한 `JPAQueryFactory` 빈을 제공합니다.
+
+## QuerydslConfig 클래스 설명
+
+`QuerydslConfig` 클래스는 QueryDSL을 사용하기 위한 설정 클래스로, Spring Boot 애플리케이션에서 QueryDSL의 `JPAQueryFactory`를 빈으로 등록하여 의존성 주입을 통해 사용할 수 있도록 합니다.
+
+### 코드 예제
+
+```java
+@Configuration
+public class QuerydslConfig {
+
+    @PersistenceContext
+    EntityManager entityManager;
+
+    @Bean
+    public JPAQueryFactory jpaQueryFactory() {
+        return new JPAQueryFactory(entityManager);
+    }
+}
+```
+
+### 구성 요소 설명
+
+- **@Configuration**: 이 클래스가 Spring의 설정 클래스임을 나타내며, 애플리케이션에서 사용할 빈을 정의합니다.
+  
+- **EntityManager**: JPA에서 데이터베이스와 상호 작용하기 위한 핵심 인터페이스로, `@PersistenceContext` 애노테이션을 통해 주입됩니다.
+
+- **JPAQueryFactory 빈**: `JPAQueryFactory`는 QueryDSL에서 쿼리를 생성하는데 사용되며, `EntityManager`를 인수로 받아 인스턴스를 생성합니다. 이 빈을 사용하여 QueryDSL 기반의 쿼리를 작성할 수 있습니다.
+
+### 사용법
+
+- 이 설정 클래스를 추가하면 `JPAQueryFactory`를 다른 서비스나 레포지토리 클래스에서 의존성 주입을 통해 사용할 수 있습니다.
+- QueryDSL을 사용하여 복잡한 쿼리를 간편하게 작성하고, Spring Data JPA와 함께 사용할 수 있습니다.
+
+## 필요 조건
+
+- **QueryDSL** 라이브러리가 `build.gradle` 파일에 포함되어 있어야 합니다.
+- Spring Data JPA가 프로젝트에 설정되어 있어야 합니다.
+
+이 설정 클래스를 통해 QueryDSL 쿼리를 손쉽게 작성하고 관리할 수 있습니다.
