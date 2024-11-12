@@ -209,6 +209,81 @@ dependencies {
     testCompileOnly 'org.projectlombok:lombok'  // 테스트 시 Lombok 컴파일 전용
     testAnnotationProcessor 'org.projectlombok:lombok'  // Lombok 애노테이션 프로세서 (테스트용)
 }
+
+## 코드 설명
+
+### QueryDSL 생성 소스 디렉토리 설정
+
+```gradle
+def generatedDir = file("build/generated/sources/annotationProcessor/java/main")
+```
+
+- **generatedDir**: QueryDSL 애노테이션 프로세서가 생성한 소스 파일을 저장할 디렉토리입니다. `build/generated/sources/annotationProcessor/java/main` 경로를 사용하여 설정됩니다.
+
+### 소스 세트에 생성 디렉토리 추가
+
+```gradle
+sourceSets {
+    main.java.srcDirs += [ generatedDir ]
+}
+```
+
+- **sourceSets**: `main` 소스 세트에 `generatedDir` 디렉토리를 추가하여 QueryDSL에서 생성된 소스 파일을 컴파일 경로에 포함시킵니다.
+
+### 컴파일 시 생성 소스 출력 디렉토리 설정
+
+```gradle
+compileJava {
+    options.getGeneratedSourceOutputDirectory().set(generatedDir)
+}
+```
+
+- **compileJava**: 자바 컴파일 태스크 설정으로, 애노테이션 프로세서가 생성한 소스 파일을 `generatedDir` 디렉토리에 저장하도록 지정합니다.
+
+### 애노테이션 프로세서 경로 설정
+
+```gradle
+tasks.withType(JavaCompile).configureEach {
+    options.annotationProcessorPath = configurations.annotationProcessor
+}
+```
+
+- **annotationProcessorPath**: 모든 Java 컴파일 작업에 대해 애노테이션 프로세서 경로를 설정하여, 필요한 애노테이션 프로세서를 로드할 수 있도록 구성합니다.
+
+### 클린업 설정
+
+```gradle
+clean.doLast {
+    file(generatedDir).deleteDir()
+}
+```
+
+- **clean.doLast**: `clean` 태스크가 완료된 후 `generatedDir` 디렉토리를 삭제하여, 이전 빌드에서 생성된 파일들을 정리합니다.
+
+### 추가 클린 디렉토리 설정
+
+```gradle
+clean {
+    delete file('src/main/generated')
+}
+```
+
+- **clean**: `src/main/generated` 디렉토리를 삭제하여 불필요한 생성 파일들을 정리합니다.
+
+### JUnit 플랫폼 설정
+
+```gradle
+tasks.named('test') {
+    useJUnitPlatform()
+}
+```
+
+- **JUnit Platform 사용**: `test` 태스크가 JUnit 플랫폼을 사용하도록 설정하여 최신 JUnit 5 기능을 사용할 수 있게 합니다.
+
+## 요약
+
+이 설정을 통해 QueryDSL에서 생성된 소스 파일이 `build/generated/sources/annotationProcessor/java/main` 디렉토리에 저장되며, 이 디렉토리가 소스 세트에 포함됩니다. `clean` 태스크에서 불필요한 파일들을 정리하며, JUnit 5 플랫폼을 테스트에 사용하여 테스트 기능을 확장합니다.
+
 ```
 
 각 의존성 설명:
