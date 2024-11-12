@@ -210,6 +210,8 @@ dependencies {
     testAnnotationProcessor 'org.projectlombok:lombok'  // Lombok 애노테이션 프로세서 (테스트용)
 }
 
+
+```
 ## 코드 설명
 
 ### QueryDSL 생성 소스 디렉토리 설정
@@ -283,8 +285,6 @@ tasks.named('test') {
 ## 요약
 
 이 설정을 통해 QueryDSL에서 생성된 소스 파일이 `build/generated/sources/annotationProcessor/java/main` 디렉토리에 저장되며, 이 디렉토리가 소스 세트에 포함됩니다. `clean` 태스크에서 불필요한 파일들을 정리하며, JUnit 5 플랫폼을 테스트에 사용하여 테스트 기능을 확장합니다.
-
-```
 
 각 의존성 설명:
 - **Spring Boot Starters**: `spring-boot-starter-data-jpa`, `spring-boot-starter-thymeleaf`, `spring-boot-starter-web`을 포함하여 JPA, Thymeleaf 템플릿 엔진, 웹 MVC를 지원합니다.
