@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <!--게시판 데이블 xml -->
+    <include file="/db/changelog/db.changelog-v1-create-table-board.xml"/>
+
+    <!--공통코드 테이블 -->
+    <include file="/db/changelog/db.changelog-v1-create-table-common_code.xml"/>
+
+    <!--회원 그룹 코드 -->
+    <include file="/db/changelog/db.changelog-v1-insert-table-member-group-code.xml"/>
+
+    <!--예약 그룹 코드 -->
+    <include file="/db/changelog/db.changelog-v1-insert-table-reservation-group-code.xml"/>
+
+</databaseChangeLog>

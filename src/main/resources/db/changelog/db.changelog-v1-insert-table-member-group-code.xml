@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                            http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <!-- ChangeSet: tbl_common_group_code 테이블 생성 -->
+    <changeSet id="1" author="system">
+        <insert tableName="tbl_common_group_code">
+            <column name="common_group_code" value="MEMBER_STATE_CODE"/>
+            <column name="common_group_code_name" value="회원상태코드"/>
+            <column name="is_used" valueBoolean="true"/>
+            <column name="created_by" value="SYSTEM"/>
+            <column name="created_date" valueDate="2024-11-12 00:00:00"/>
+            <column name="last_modified_by" value="SYSTEM"/>
+            <column name="last_modified_date" valueDate="2024-11-12 00:00:00"/>
+        </insert>
+    </changeSet>
+
+    <!-- ChangeSet: tbl_common_group_code 테이블 생성 -->
+    <changeSet id="2" author="system">
+        <!-- 활동 -->
+        <insert tableName="tbl_common_code">
+            <column name="common_group_code" value="MEMBER_STATE_CODE"/>
+            <column name="common_code" value="01"/>
+            <column name="common_code_name" value="활동"/>
+            <column name="is_used" valueBoolean="true"/>
+            <column name="created_by" value="SYSTEM"/>
+            <column name="created_date" valueDate="2024-11-12 00:00:00"/>
+            <column name="last_modified_by" value="SYSTEM"/>
+            <column name="last_modified_date" valueDate="2024-11-12 00:00:00"/>
+        </insert>
+
+        <!-- 활동제한 -->
+        <insert tableName="tbl_common_code">
+            <column name="common_group_code" value="MEMBER_STATE_CODE"/>
+            <column name="common_code" value="02"/>
+            <column name="common_code_name" value="활동제한"/>
+            <column name="is_used" valueBoolean="true"/>
+            <column name="created_by" value="SYSTEM"/>
+            <column name="created_date" valueDate="2024-11-12 00:00:00"/>
+            <column name="last_modified_by" value="SYSTEM"/>
+            <column name="last_modified_date" valueDate="2024-11-12 00:00:00"/>
+        </insert>
+
+        <!-- 활동중지 -->
+        <insert tableName="tbl_common_code">
+            <column name="common_group_code" value="MEMBER_STATE_CODE"/>
+            <column name="common_code" value="03"/>
+            <column name="common_code_name" value="활동중지"/>
+            <column name="is_used" valueBoolean="true"/>
+            <column name="created_by" value="SYSTEM"/>
+            <column name="created_date" valueDate="2024-11-12 00:00:00"/>
+            <column name="last_modified_by" value="SYSTEM"/>
+            <column name="last_modified_date" valueDate="2024-11-12 00:00:00"/>
+        </insert>
+
+        <!-- 탈퇴 -->
+        <insert tableName="tbl_common_code">
+            <column name="common_group_code" value="MEMBER_STATE_CODE"/>
+            <column name="common_code" value="04"/>
+            <column name="common_code_name" value="탈퇴"/>
+            <column name="is_used" valueBoolean="true"/>
+            <column name="created_by" value="SYSTEM"/>
+            <column name="created_date" valueDate="2024-11-12 00:00:00"/>
+            <column name="last_modified_by" value="SYSTEM"/>
+            <column name="last_modified_date" valueDate="2024-11-12 00:00:00"/>
+        </insert>
+
+    </changeSet>
+</databaseChangeLog>
