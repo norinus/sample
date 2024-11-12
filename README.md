@@ -212,8 +212,6 @@ dependencies {
 
 
 ```
-## 코드 설명
-
 ### QueryDSL 생성 소스 디렉토리 설정
 
 ```gradle
